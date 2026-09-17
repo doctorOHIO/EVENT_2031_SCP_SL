@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>РОЛИ - METRO 2033</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Share Tech Mono', 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #c4c4c4;
+            min-height: 100vh;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.15),
+                    rgba(0, 0, 0, 0.15) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+            pointer-events: none;
+            z-index: 999;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.97; }
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: flicker 4s infinite;
+        }
+        
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(20,20,20,0.8) 100%);
+            border-bottom: 3px solid #ff6600;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 3.5em;
+            color: #ff6600;
+            text-shadow: 0 0 10px rgba(255, 102, 0, 0.8);
+            margin-bottom: 15px;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            display: inline-block;
+            padding: 12px 25px;
+            background: rgba(255, 102, 0, 0.1);
+            color: #ff6600;
+            text-decoration: none;
+            border: 2px solid #ff6600;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        nav a:hover {
+            background: #ff6600;
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 102, 0, 0.6);
+        }
+        
+        .content {
+            background: rgba(15, 15, 15, 0.9);
+            padding: 40px;
+            border: 2px solid #333;
+        }
+        
+        .legend {
+            background: rgba(255, 102, 0, 0.1);
+            border: 1px solid #ff6600;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .legend-item {
+            margin: 10px 0;
+        }
+        
+        h2 {
+            color: #ff6600;
+            margin: 35px 0 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: #ff9933;
+            margin: 25px 0 10px;
+            font-size: 1.3em;
+        }
+        
+        .station-info {
+            background: rgba(255, 102, 0, 0.05);
+            padding: 15px;
+            margin: 10px 0 20px;
+            border-left: 3px solid #ff6600;
+            font-size: 0.95em;
+            color: #999;
+        }
+        
+        .role-list {
+            list-style: none;
+            margin: 15px 0;
+        }
+        
+        .role-list li {
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: rgba(30, 30, 30, 0.6);
+            border-left: 3px solid #444;
+            transition: all 0.3s;
+        }
+        
+        .role-list li:hover {
+            background: rgba(255, 102, 0, 0.1);
+            border-left-color: #ff6600;
+            transform: translateX(5px);
+        }
+        
+        .important-role {
+            color: #ff3333;
+            font-weight: bold;
+        }
+        
+        .passive-role {
+            color: #777;
+        }
+        
+        .taken-role {
+            color: #00cc00;
+            font-weight: bold;
+        }
+        
+        .contact-info {
+            background: rgba(255, 102, 0, 0.1);
+            border: 2px solid #ff6600;
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .contact-info h2 {
+            margin-top: 0;
+            border: none;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 2px solid #333;
+            color: #555;
+        }
+        
+        .status-bar {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            text-align: center;
+            font-size: 0.8em;
+            color: #666;
+            border-top: 1px solid #333;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+                letter-spacing: 4px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>METRO 2033</h1>
+        <p style="color: #888; letter-spacing: 3px;">[ СПИСОК ДОСТУПНЫХ РОЛЕЙ ]</p>
+    </header>
+    
+    <div class="container">
+        <nav>
+            <a href="index.html">[ ГЛАВНАЯ ]</a>
+            <a href="roles.html">[ ДОСТУПНЫЕ РОЛИ ]</a>
+            <a href="synopsis.html">[ СИНОПСИС ]</a>
+        </nav>
+        
+        <div class="content">
+            <div class="legend">
+                <h3 style="margin-top: 0; color: #ff6600;">ЛЕГЕНДА ОБОЗНАЧЕНИЙ:</h3>
+                <div class="legend-item">
+                    <span class="important-role">(!)</span> - очень важная роль, может быть отказано (на усмотрение проводящего)
+                </div>
+                <div class="legend-item">
+                    <span class="passive-role">(?)</span> - роль не с активным геймплеем, но вы можете самостоятельно развивать вашу игру
+                </div>
+                <div class="legend-item">
+                    <span class="taken-role">[ЗАНЯТО]</span> - роль уже занята
+                </div>
+            </div>
+            
+            <h2>МЕЖСТАНЦИОННЫЕ РОЛИ</h2>
+            <ul class="role-list">
+                <li><span class="important-role">Глава объединения независимых станций (!)</span></li>
+                <li>Торговец Ганзы - <span class="taken-role">BAFLЯ [ЗАНЯТО]</span></li>
+            </ul>
+            
+            <h2>ЖИТЕЛИ СТАНЦИИ 1 (СТОЛИЦА)</h2>
+            <div class="station-info">
+                Принимаются все решения, живёт наиболее стабильно. Является центром руководства войсками и центром принятия решений.
+            </div>
+            <ul class="role-list">
+                <li><span class="important-role">Начальник обороны (!)</span></li>
+                <li>Охранник</li>
+                <li>Охранник</li>
+                <li><span class="passive-role">Медик (?)</span></li>
+                <li><span class="passive-role">Медик (?)</span></li>
+                <li><span class="passive-role">Гражданский (?)</span></li>
+                <li>Перевозчик</li>
+                <li>Инженер</li>
+                <li><span class="passive-role">Гражданский (?)</span></li>
+            </ul>
+            
+            <h2>ЖИТЕЛИ СТАНЦИИ 2</h2>
+            <div class="station-info">
+                Логистическая станция. Распределяются все ресурсы, также является главной торговой точкой куда сходятся все торговцы. Активно производятся патроны и медикаменты.
+            </div>
+            <ul class="role-list">
+                <li>Охранник</li>
+                <li>Охранник</li>
+                <li>Медик</li>
+                <li><span class="passive-role">Логист продовольствия (?)</span></li>
+                <li>Инженер</li>
+                <li><span class="important-role">Кандидат от второй станции (!)</span></li>
+                <li><span class="passive-role">Гражданский (?)</span></li>
+            </ul>
+            
+            <h2>ЖИТЕЛИ СТАНЦИИ 3</h2>
+            <div class="station-info">
+                Производственная станция. Активное производство еды и воды, также имеется максимально токсичное производство грибов. Наименее развита с точки зрения инфраструктуры.
+            </div>
+            <ul class="role-list">
+                <li>Охранник</li>
+                <li>Охранник</li>
+                <li><span class="important-role">Кандидат от 3 станции (!)</span></li>
+                <li>Торговец</li>
+                <li>Транспортник</li>
+                <li><span class="passive-role">Сталкер (?)</span></li>
+                <li><span class="passive-role">Гражданский (?)</span></li>
+                <li><span class="passive-role">Гражданский (?)</span></li>
+            </ul>
+            
+            <h2>СТАТИСТЫ</h2>
+            <ul class="role-list">
+                <li>Статист - <span class="taken-role">William Fear [ЗАНЯТО]</span></li>
+                <li><span class="passive-role">Статист (?)</span></li>
+                <li><span class="passive-role">Статист (?)</span></li>
+            </ul>
+            
+            <div class="contact-info">
+                <h2>КАК ЗАПИСАТЬСЯ?</h2>
+                <p style="font-size: 1.1em; margin: 20px 0;">
+                    Для записи на ивент свяжитесь с организатором напрямую через личные сообщения.
+                </p>
+                <p style="color: #ff6600; font-size: 1.2em; margin-top: 20px;">
+                    [ СВЯЖИТЕСЬ С ПРОВОДЯЩИМ ДЛЯ ЗАПИСИ ]
+                </p>
+            </div>
+        </div>
+        
+        <div class="status-bar">
+            СТАТУС СИСТЕМЫ: ОНЛАЙН | ДОСТУПНО РОЛЕЙ: 28 | ЗАНЯТО: 2
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2033 METRO UNDERGROUND NETWORK | ВСЕ ПРАВА ЗАЩИЩЕНЫ</p>
+        <p style="margin-top: 10px; font-size: 0.8em;">[ КОНЕЦ ПЕРЕДАЧИ ]</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СИНОПСИС - METRO 2033</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Share Tech Mono', 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #c4c4c4;
+            min-height: 100vh;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.15),
+                    rgba(0, 0, 0, 0.15) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+            pointer-events: none;
+            z-index: 999;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.97; }
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: flicker 4s infinite;
+        }
+        
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(20,20,20,0.8) 100%);
+            border-bottom: 3px solid #ff6600;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 3.5em;
+            color: #ff6600;
+            text-shadow: 0 0 10px rgba(255, 102, 0, 0.8);
+            margin-bottom: 15px;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            display: inline-block;
+            padding: 12px 25px;
+            background: rgba(255, 102, 0, 0.1);
+            color: #ff6600;
+            text-decoration: none;
+            border: 2px solid #ff6600;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        nav a:hover {
+            background: #ff6600;
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 102, 0, 0.6);
+        }
+        
+        .content {
+            background: rgba(15, 15, 15, 0.9);
+            padding: 40px;
+            border: 2px solid #333;
+        }
+        
+        h2 {
+            color: #ff6600;
+            margin: 35px 0 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: #ff9933;
+            margin: 25px 0 10px;
+            font-size: 1.3em;
+        }
+        
+        .synopsis-intro {
+            background: rgba(255, 102, 0, 0.1);
+            border-left: 4px solid #ff6600;
+            padding: 25px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+        
+        .story-text {
+            background: rgba(30, 30, 30, 0.5);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 3px;
+            line-height: 1.8;
+        }
+        
+        .station-card {
+            background: rgba(255, 102, 0, 0.05);
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 102, 0, 0.3);
+            position: relative;
+        }
+        
+        .station-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #ff6600;
+        }
+        
+        .highlight {
+            background: rgba(255, 102, 0, 0.2);
+            padding: 2px 6px;
+            color: #ff9933;
+        }
+        
+        .danger {
+            color: #ff3333;
+            font-weight: bold;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 30px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ff6600;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(30, 30, 30, 0.5);
+        }
+        
+        .timeline-item::before {
+            content: '◆';
+            position: absolute;
+            left: -26px;
+            top: 15px;
+            color: #ff6600;
+            font-size: 1.2em;
+        }
+        
+        .quote {
+            font-style: italic;
+            color: #999;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 3px solid #ff6600;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 2px solid #333;
+            color: #555;
+        }
+        
+        .status-bar {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            text-align: center;
+            font-size: 0.8em;
+            color: #666;
+            border-top: 1px solid #333;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+                letter-spacing: 4px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>METRO 2033</h1>
+        <p style="color: #888; letter-spacing: 3px;">[ СИНОПСИС ИВЕНТА ]</p>
+    </header>
+    
+    <div class="container">
+        <nav>
+            <a href="index.html">[ ГЛАВНАЯ ]</a>
+            <a href="roles.html">[ ДОСТУПНЫЕ РОЛИ ]</a>
+            <a href="synopsis.html">[ СИНОПСИС ]</a>
+        </nav>
+        
+        <div class="content">
+            <div class="synopsis-intro">
+                <h2 style="margin-top: 0;">ОСНОВНОЙ СЮЖЕТ</h2>
+                <p>Вы жители <span class="highlight">объединения независимых станций</span>. В данный момент на дворе <span class="highlight">2031 год</span>, у ваших станций нестабильные времена. Логистика между станциям нарушена.</p>
+                
+                <p style="margin-top: 15px;">В последнее время по слухам на перевозчиков и торговцев увеличилось нападение, вопрос <span class="danger">от кого???</span></p>
+            </div>
+            
+            <h2>ПОЛИТИЧЕСКАЯ ОБСТАНОВКА</h2>
+            <div class="story-text">
+                <p>Политические времена тоже не стабильные. На союз начинает активно давить силы <span class="danger">4-рейха</span>. По большей части глава не справляется.</p>
+                
+                <p style="margin-top: 15px;">Также стали учащаться нападения от <span class="danger">бандитов</span> и <span class="danger">мутантов</span>.</p>
+                
+                <p style="margin-top: 15px;">После недовольства было принято решении о принятие <span class="highlight">независимых выборов</span> с каждым кандидатом от каждой станции.</p>
+            </div>
+            
+            <h2>КРАТКАЯ СВОДКА О КАЖДОЙ СТАНЦИИ</h2>
+            
+            <div class="station-card">
+                <h3>🏛️ СТАНЦИЯ 1 - СТОЛИЦА</h3>
+                <p>Принимаются все решения, живёт наиболее стабильно. Является <span class="highlight">центром руководство войсками</span> и <span class="highlight">центром принятия решений</span>.</p>
+                <ul style="margin-left: 20px; margin-top: 15px;">
+                    <li>Наиболее безопасная станция</li>
+                    <li>Центр политической власти</li>
+                    <li>Хорошо организованная оборона</li>
+                    <li>Стабильное снабжение</li>
+                </ul>
+            </div>
+            
+            <div class="station-card">
+                <h3>🚂 СТАНЦИЯ 2 - ЛОГИСТИЧЕСКАЯ</h3>
+                <p>Распределяются все ресурсы, также является <span class="highlight">главной торговой точкой</span> куда сходятся все торговцы. Активно производятся <span class="highlight">патроны и медикаменты</span>.</p>
+                <ul style="margin-left: 20px; margin-top: 15px;">
+                    <li>Центр торговли и экономики</li>
+                    <li>Производство боеприпасов</li>
+                    <li>Медицинское производство</li>
+                    <li>Ключевой узел логистики</li>
+                </ul>
+            </div>
+            
+            <div class="station-card">
+                <h3>⚙️ СТАНЦИЯ 3 - ПРОИЗВОДСТВЕННАЯ</h3>
+                <p>Активное производство <span class="highlight">еды и воды</span>, также имеется <span class="danger">максимально токсичное производство грибов</span>. Наименее развита с точки зрения инфраструктуры.</p>
+                <ul style="margin-left: 20px; margin-top: 15px;">
+                    <li>Основной производитель продовольствия</li>
+                    <li>Токсичное производство</li>
+                    <li>Слабая инфраструктура</li>
+                    <li>Высокий риск заражения</li>
+                </ul>
+            </div>
+            
+            <h2>КЛЮЧЕВЫЕ СОБЫТИЯ</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>НАРУШЕНИЕ ЛОГИСТИКИ</strong>
+                    <p style="margin-top: 10px;">Торговые пути между станциями становятся всё более опасными. Перевозчики пропадают без вести.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <strong>УСИЛЕНИЕ ДАВЛЕНИЯ 4-РЕЙХА</strong>
+                    <p style="margin-top: 10px;">Враждебная фракция увеличивает активность на границах союза. Угроза полномасштабного конфликта.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <strong>НЕДОВОЛЬСТВО НАСЕЛЕНИЯ</strong>
+                    <p style="margin-top: 10px;">Жители требуют перемен. Глава объединения теряет контроль над ситуацией.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <strong>ОБЪЯВЛЕНИЕ ВЫБОРОВ</strong>
+                    <p style="margin-top: 10px;">Принято решение провести независимые выборы с кандидатами от каждой станции. Это шанс изменить судьбу союза.</p>
+                </div>
+            </div>
+            
+            <div class="quote">
+                "В мире после апокалипсиса каждый выбор имеет значение. Каждая станция борется за выживание, но только вместе они могут противостоять угрозам снаружи и внутри."
+            </div>
+            
+            <h2>ЧТО ЖДЁТ ИГРОКОВ?</h2>
+            <div class="story-text">
+                <ul style="margin-left: 20px;">
+                    <li><strong>Политические интриги:</strong> Участвуйте в выборах, заключайте союзы, ведите переговоры</li>
+                    <li><strong>Экономическая игра:</strong> Торгуйте ресурсами, развивайте производство, контролируйте рынки</li>
+                    <li><strong>Боевые столкновения:</strong> Защищайте станции от мутантов, бандитов и враждебных фракций</li>
+                    <li><strong>Исследование:</strong> Отправляйтесь в опасные вылазки на поверхность или в заброшенные тоннели</li>
+                    <li><strong>Развитие персонажа:</strong> Прокачивайте навыки, находите уникальное снаряжение, стройте отношения</li>
+                </ul>
+            </div>
+            
+            <div class="synopsis-intro" style="margin-top: 30px;">
+                <p style="margin-bottom: 0;"><strong>Ваши решения определят будущее объединения!</strong> Будет ли оно процветать или падёт под натиском внешних и внутренних угроз? Всё зависит от вас.</p>
+            </div>
+        </div>
+        
+        <div class="status-bar">
+            СТАТУС СИСТЕМЫ: ОНЛАЙН | ГОД: 2031 | УГРОЗА: ВЫСОКАЯ
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2033 METRO UNDERGROUND NETWORK | ВСЕ ПРАВА ЗАЩИЩЕНЫ</p>
+        <p style="margin-top: 10px; font-size: 0.8em;">[ КОНЕЦ ПЕРЕДАЧИ ]</p>
+    </footer>
+</body>
+</html>
